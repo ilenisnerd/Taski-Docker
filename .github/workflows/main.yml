@@ -149,7 +149,7 @@ jobs:
           # Тут вместо username должен быть ваш логин на Docker Hub
           tags: ilenisnerd/taski_gateway:latest
   deploy:
-    needs: [tests, build_and_push_to_docker_hub, frontend_tests, build_frontend_and_push_to_docker_hub, build_gateway_and_push_to_docker_hub]
+    needs: [tests, build_and_push_to_docker_hub, frontend_tests, build_frontend_and_push_to_docker_hub]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy application
