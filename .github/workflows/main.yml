@@ -141,13 +141,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Push to DockerHub
-        uses: docker/build-push-action@v4
-        with:
-          context: ./gateway/
-          push: true
-          # Тут вместо username должен быть ваш логин на Docker Hub
-          tags: ilenisnerd/taski_gateway:latest
   deploy:
     needs: [tests, build_and_push_to_docker_hub, frontend_tests, build_frontend_and_push_to_docker_hub]
     runs-on: ubuntu-latest
