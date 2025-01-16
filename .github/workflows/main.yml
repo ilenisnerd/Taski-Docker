@@ -142,7 +142,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
   deploy:
-    needs: [tests, build_and_push_to_docker_hub, frontend_tests, build_frontend_and_push_to_docker_hub]
+    needs: [tests, build_and_push_to_docker_hub, frontend_tests, build_frontend_and_push_to_docker_hub, build_gateway_and_push_to_docker_hub]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy application
