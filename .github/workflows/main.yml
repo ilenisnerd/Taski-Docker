@@ -6,6 +6,33 @@ on:
       - main
 
 jobs:
+  trivy-scan:
+    name: Tryvy scan analyzer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+
+      # Шаг 3: Сканирование файловой системы
+      - name: Scan filesystem with Trivy
+        run: |
+          ./trivy fs . --exit-code 1 --no-progress
+
+      # Шаг 4: (опционально) Сохранение отчета
+      - name: Save Trivy Report
+        if: failure()
+        run: |
+          ./trivy fs . --format json --output trivy-report.json
+        # Загружаем отчет как артефакт
+      - name: Upload Trivy Report
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: trivy-report
+          path: trivy-report.json
   tests:
     runs-on: ubuntu-latest
     services:
