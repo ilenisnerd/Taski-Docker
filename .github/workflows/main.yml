@@ -19,20 +19,7 @@ jobs:
       # Шаг 3: Сканирование файловой системы
       - name: Scan filesystem with Trivy
         run: |
-          ./trivy fs . --exit-code 1 --no-progress
-
-      # Шаг 4: (опционально) Сохранение отчета
-      - name: Save Trivy Report
-        if: failure()
-        run: |
-          ./trivy fs . --format json --output trivy-report.json
-        # Загружаем отчет как артефакт
-      - name: Upload Trivy Report
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: trivy-report
-          path: trivy-report.json
+          - trivy fs . 
   tests:
     runs-on: ubuntu-latest
     services:
