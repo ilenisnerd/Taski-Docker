@@ -12,14 +12,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-      - name: Install Trivy
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
-
-      # Шаг 3: Сканирование файловой системы
       - name: Scan filesystem with Trivy
-        run: |
-          - trivy fs . 
+        uses: aquasecurity/trivy-action@v0.11.0
   tests:
     runs-on: ubuntu-latest
     services:
